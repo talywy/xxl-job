@@ -27,6 +27,9 @@ public class XxlJobAdminConfig implements InitializingBean{
     @Value("${xxl.job.mail.port}")
     private String mailPort;
 
+    @Value("${xxl.job.mail.ssl}")
+    private boolean mailSSL;
+
     @Value("${xxl.job.mail.username}")
     private String mailUsername;
 
@@ -45,6 +48,8 @@ public class XxlJobAdminConfig implements InitializingBean{
     @Value("${xxl.job.i18n}")
     private String i18n;
 
+    @Value("${xxl.job.log.detail.host}")
+    private String logDetailHost;
 
     public String getMailHost() {
         return mailHost;
@@ -52,6 +57,10 @@ public class XxlJobAdminConfig implements InitializingBean{
 
     public String getMailPort() {
         return mailPort;
+    }
+
+    public boolean isMailSSL() {
+        return mailSSL;
     }
 
     public String getMailUsername() {
@@ -78,4 +87,7 @@ public class XxlJobAdminConfig implements InitializingBean{
         return i18n;
     }
 
+    public String getLogDetailHost() {
+        return logDetailHost;
+    }
 }
