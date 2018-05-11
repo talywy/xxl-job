@@ -1,5 +1,6 @@
 package com.xxl.job.admin.core.thread;
 
+import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
 import com.xxl.job.admin.core.model.XxlJobGroup;
 import com.xxl.job.admin.core.model.XxlJobInfo;
 import com.xxl.job.admin.core.model.XxlJobLog;
@@ -127,7 +128,8 @@ public class JobFailMonitorHelper {
 			"         <td>"+ I18nUtil.getString("jobinfo_field_jobgroup") +"</td>\n" +
 			"         <td>"+ I18nUtil.getString("jobinfo_field_id") +"</td>\n" +
 			"         <td>"+ I18nUtil.getString("jobinfo_field_jobdesc") +"</td>\n" +
-			"         <td>"+ I18nUtil.getString("jobconf_monitor_alarm_title") +"</td>\n" +
+		    //"         <td>"+ I18nUtil.getString("jobconf_monitor_alarm_title") +"</td>\n" +
+			"         <td>"+ I18nUtil.getString("jobconf_monitor_alarm_detail") +"</td>\n" +
 			"      </tr>\n" +
 			"   <thead/>\n" +
 			"   <tbody>\n" +
@@ -135,7 +137,8 @@ public class JobFailMonitorHelper {
 			"         <td>{0}</td>\n" +
 			"         <td>{1}</td>\n" +
 			"         <td>{2}</td>\n" +
-			"         <td>"+ I18nUtil.getString("jobconf_monitor_alarm_type") +"</td>\n" +
+			//"         <td>"+ I18nUtil.getString("jobconf_monitor_alarm_type") +"</td>\n" +
+			"         <td><a href={3}>详细信息</a></td>\n" +
 			"      </tr>\n" +
 			"   <tbody>\n" +
 			"</table>";
@@ -156,7 +159,8 @@ public class JobFailMonitorHelper {
 				XxlJobGroup group = XxlJobDynamicScheduler.xxlJobGroupDao.load(Integer.valueOf(info.getJobGroup()));
 
 				String title = I18nUtil.getString("jobconf_monitor");
-				String content = MessageFormat.format(mailBodyTemplate, group!=null?group.getTitle():"null", info.getId(), info.getJobDesc());
+				String content = MessageFormat.format(mailBodyTemplate, group!=null?group.getTitle():"null", info.getId(),
+						info.getJobDesc(), XxlJobAdminConfig.getAdminConfig().getLogDetailHost()+"joblog/logDetailPage?id="+jobLog.getId());
 
 				MailUtil.sendMail(email, title, content);
 			}
